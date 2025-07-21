@@ -140,35 +140,6 @@ for i in "${!MENSAJES[@]}"; do
     echo "" | tee -a resultados_hamming.txt
     echo "--- Análisis para mensaje '$mensaje' ---" | tee -a resultados_hamming.txt
     echo "Trama: $trama" | tee -a resultados_hamming.txt
-    
-    # Probar algunos patrones específicos que podrían dar síndrome 0
-    # (Esto requiere análisis manual basado en las posiciones de paridad)
-    echo "ANÁLISIS MANUAL REQUERIDO:" | tee -a resultados_hamming.txt
-    echo "- Probar combinaciones de errores que sumen a 0 en el síndrome" | tee -a resultados_hamming.txt
-    echo "- Documentar si existen patrones no detectables" | tee -a resultados_hamming.txt
 done
-
-echo "" | tee -a resultados_hamming.txt
-echo "📊 RESUMEN PARA EL REPORTE" | tee -a resultados_hamming.txt
-echo "============================" | tee -a resultados_hamming.txt
-echo "" | tee -a resultados_hamming.txt
-echo "VENTAJAS DEL CÓDIGO DE HAMMING:" | tee -a resultados_hamming.txt
-echo "✓ Corrección automática de errores de 1 bit" | tee -a resultados_hamming.txt
-echo "✓ Detección de errores de 2 bits" | tee -a resultados_hamming.txt
-echo "✓ Indica posición exacta del error" | tee -a resultados_hamming.txt
-echo "" | tee -a resultados_hamming.txt
-echo "DESVENTAJAS DEL CÓDIGO DE HAMMING:" | tee -a resultados_hamming.txt
-echo "✗ Alto overhead para mensajes cortos" | tee -a resultados_hamming.txt
-echo "✗ Puede 'corregir' incorrectamente con 2+ errores" | tee -a resultados_hamming.txt
-echo "✗ Complejidad computacional media" | tee -a resultados_hamming.txt
-
-echo ""
-echo "✅ Pruebas de Hamming completadas!"
-echo "📄 Resultados en: resultados_hamming/resultados_hamming.txt"
-echo ""
-echo "📋 PRÓXIMOS PASOS:"
-echo "1. Coordinar con tu pareja para que use los mismos mensajes: ${MENSAJES[@]}"
-echo "2. Comparar resultados entre Hamming y Fletcher"
-echo "3. Escribir reporte conjunto con análisis comparativo"
 
 cd ..

@@ -1,5 +1,5 @@
 === RESULTADOS HAMMING - LABORATORIO 2 ===
-Fecha: Sun Jul 20 21:01:55 CST 2025
+Fecha: Sun Jul 20 21:08:47 CST 2025
 Algoritmo: Código de Hamming (Corrección de errores)
 
 🔧 PARTE 1: GENERACIÓN DE TRAMAS HAMMING
@@ -298,31 +298,9 @@ Buscando patrones de error que resulten en síndrome = 0...
 
 --- Análisis para mensaje '1101' ---
 Trama: 1010101
-ANÁLISIS MANUAL REQUERIDO:
-- Probar combinaciones de errores que sumen a 0 en el síndrome
-- Documentar si existen patrones no detectables
 
 --- Análisis para mensaje '10110' ---
 Trama: 011001100
-ANÁLISIS MANUAL REQUERIDO:
-- Probar combinaciones de errores que sumen a 0 en el síndrome
-- Documentar si existen patrones no detectables
 
 --- Análisis para mensaje '111010011' ---
 Trama: 0010110110011
-ANÁLISIS MANUAL REQUERIDO:
-- Probar combinaciones de errores que sumen a 0 en el síndrome
-- Documentar si existen patrones no detectables
-
-📊 RESUMEN PARA EL REPORTE
-============================
-
-VENTAJAS DEL CÓDIGO DE HAMMING:
-✓ Corrección automática de errores de 1 bit
-✓ Detección de errores de 2 bits
-✓ Indica posición exacta del error
-
-DESVENTAJAS DEL CÓDIGO DE HAMMING:
-✗ Alto overhead para mensajes cortos
-✗ Puede 'corregir' incorrectamente con 2+ errores
-✗ Complejidad computacional media
