@@ -38,23 +38,24 @@ def receptor_hamming(trama_recibida):
     print(f"Posiciones de paridad detectadas: {posiciones_paridad}")
     
     sindrome = 0
-    bits_paridad_calculados = []
-    bits_paridad_recibidos = []
+    verificaciones_paridad = []
     
+    print(f"\n--- VERIFICACIÓN DE PARIDADES ---")
     for pos_paridad in posiciones_paridad:
-        bit_recibido = trama_lista[pos_paridad - 1]
-        bits_paridad_recibidos.append(bit_recibido)
+        paridad_calculada = calcular_bit_paridad(trama_lista, pos_paridad, longitud_trama)
         
-        bit_calculado = calcular_bit_paridad(trama_lista, pos_paridad, longitud_trama)
-        bits_paridad_calculados.append(bit_calculado)
+        posiciones_incluidas = []
+        for pos in range(1, longitud_trama + 1):
+            if pos & pos_paridad:
+                posiciones_incluidas.append(pos)
         
-        if bit_recibido != bit_calculado:
+        print(f"P{pos_paridad}: XOR de posiciones {posiciones_incluidas} = {paridad_calculada}")
+        verificaciones_paridad.append(paridad_calculada)
+        
+        if paridad_calculada != 0:
             sindrome += pos_paridad
-        
-        print(f"Posición {pos_paridad}: Recibido={bit_recibido}, Calculado={bit_calculado}")
     
-    print(f"Bits de paridad recibidos: {bits_paridad_recibidos}")
-    print(f"Bits de paridad calculados: {bits_paridad_calculados}")
+    print(f"Verificaciones de paridad: {verificaciones_paridad}")
     print(f"Síndrome: {sindrome}")
     
     resultado = {
@@ -86,6 +87,15 @@ def receptor_hamming(trama_recibida):
             print(f"Trama corregida: {resultado['trama_corregida']}")
             resultado['datos_originales'] = extraer_datos_originales(trama_lista, posiciones_paridad)
             print(f"Datos originales: {resultado['datos_originales']}")
+            
+            print(f"\n--- VERIFICACIÓN POST-CORRECCIÓN ---")
+            sindrome_post = 0
+            for pos_paridad in posiciones_paridad:
+                paridad_post = calcular_bit_paridad(trama_lista, pos_paridad, longitud_trama)
+                if paridad_post != 0:
+                    sindrome_post += pos_paridad
+            print(f"Síndrome post-corrección: {sindrome_post} (debe ser 0)")
+            
         else:
             print(f"⚠ Error: Posición de error inválida ({sindrome})")
             resultado['datos_originales'] = "ERROR: No se puede corregir"
@@ -102,13 +112,13 @@ def introducir_error(trama, posicion):
 
 def probar_receptor():
     tramas_prueba = [
-        ("0011101", "Trama sin errores"),  
-        ("0111101", "Trama con error en posición 2"),
-        ("0010101", "Trama con error en posición 4"),
+        ("1010101", "Mensaje '1101' - sin errores"),  
+        ("0111101", "Mensaje '1101' - con error en posición 2"),
+        ("1000101", "Mensaje '1101' - con error en posición 3"),
     ]
     
     print("=" * 60)
-    print("PRUEBAS DEL RECEPTOR HAMMING")
+    print("PRUEBAS DEL RECEPTOR HAMMING CORREGIDO")
     print("=" * 60)
     
     for i, (trama, descripcion) in enumerate(tramas_prueba):
@@ -131,8 +141,8 @@ def main():
     import sys
     
     if len(sys.argv) < 2:
-        print("Uso: python receptor_hamming.py <trama_codificada>")
-        print("Ejemplo: python receptor_hamming.py 0011101")
+        print("Uso: python receptor-hamming.py <trama_codificada>")
+        print("Ejemplo: python receptor-hamming.py 1010101")
         print("\nEjecutando pruebas por defecto...")
         probar_receptor()
         return

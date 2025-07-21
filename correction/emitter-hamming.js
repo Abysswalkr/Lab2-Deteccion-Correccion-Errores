@@ -21,11 +21,10 @@ function construirTramaConParidad(datos_binarios) {
   const posiciones_paridad = obtenerPosicionesParidad(num_bits_paridad);
   
   const longitud_total = longitud_datos + num_bits_paridad;
-  const trama = new Array(longitud_total + 1).fill(0); // +1 porque empezamos en posición 1
+  const trama = new Array(longitud_total + 1).fill(0);
   
   let indice_datos = 0;
   
-  // Insertar bits de datos en posiciones que no son de paridad
   for (let pos = 1; pos <= longitud_total; pos++) {
       if (!posiciones_paridad.includes(pos)) {
           trama[pos] = parseInt(datos_binarios[indice_datos]);
@@ -49,7 +48,7 @@ function calcularBitParidad(trama, posicion_paridad, longitud_total) {
 }
 
 function emisorHamming(datos_binarios) {
-  console.log(`\n=== EMISOR HAMMING CORREGIDO ===`);
+  console.log(`\n=== EMISOR HAMMING ===`);
   console.log(`Datos originales: ${datos_binarios}`);
   
   if (!/^[01]+$/.test(datos_binarios)) {
@@ -118,7 +117,7 @@ function probarEmisorCorregido() {
   ];
   
   console.log("=".repeat(60));
-  console.log("PRUEBAS DEL EMISOR HAMMING CORREGIDO");
+  console.log("PRUEBAS DEL EMISOR HAMMING");
   console.log("=".repeat(60));
   
   for (let i = 0; i < mensajes_prueba.length; i++) {
