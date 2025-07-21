@@ -1,5 +1,5 @@
 === RESULTADOS HAMMING - LABORATORIO 2 ===
-Fecha: Sun Jul 20 21:08:47 CST 2025
+Fecha: Sun Jul 20 21:16:06 CST 2025
 Algoritmo: Código de Hamming (Corrección de errores)
 
 🔧 PARTE 1: GENERACIÓN DE TRAMAS HAMMING
@@ -7,54 +7,91 @@ Algoritmo: Código de Hamming (Corrección de errores)
 
 --- MENSAJE 1: '1101' (4 bits) ---
 
-=== EMISOR HAMMING ===
+=== EMISOR HAMMING CORREGIDO ===
 Datos originales: 1101
 Bits de datos: 4
 Bits de paridad necesarios: 3
 Posiciones de paridad: 1, 2, 4
+Trama inicial (datos solamente): 0010101
 Bit de paridad en posición 1: 1
+  -> Basado en posiciones: 3, 5, 7
 Bit de paridad en posición 2: 0
+  -> Basado en posiciones: 3, 6, 7
 Bit de paridad en posición 4: 0
+  -> Basado en posiciones: 5, 6, 7
 Trama con código de Hamming: 1010101
 Longitud total: 7 bits
 
+--- VERIFICACIÓN ---
+Verificación P1: 0 (debería ser 0)
+Verificación P2: 0 (debería ser 0)
+Verificación P4: 0 (debería ser 0)
+Síndrome de verificación: 0 (debe ser 0)
+
 TRAMA CODIFICADA: 1010101
+VERIFICACIÓN: ✓ CORRECTA
 
 TRAMA GENERADA: 1010101
 
 --- MENSAJE 2: '10110' (5 bits) ---
 
-=== EMISOR HAMMING ===
+=== EMISOR HAMMING CORREGIDO ===
 Datos originales: 10110
 Bits de datos: 5
 Bits de paridad necesarios: 4
 Posiciones de paridad: 1, 2, 4, 8
+Trama inicial (datos solamente): 001001100
 Bit de paridad en posición 1: 0
+  -> Basado en posiciones: 3, 5, 7, 9
 Bit de paridad en posición 2: 1
+  -> Basado en posiciones: 3, 6, 7
 Bit de paridad en posición 4: 0
+  -> Basado en posiciones: 5, 6, 7
 Bit de paridad en posición 8: 0
+  -> Basado en posiciones: 9
 Trama con código de Hamming: 011001100
 Longitud total: 9 bits
 
+--- VERIFICACIÓN ---
+Verificación P1: 0 (debería ser 0)
+Verificación P2: 0 (debería ser 0)
+Verificación P4: 0 (debería ser 0)
+Verificación P8: 0 (debería ser 0)
+Síndrome de verificación: 0 (debe ser 0)
+
 TRAMA CODIFICADA: 011001100
+VERIFICACIÓN: ✓ CORRECTA
 
 TRAMA GENERADA: 011001100
 
 --- MENSAJE 3: '111010011' (9 bits) ---
 
-=== EMISOR HAMMING ===
+=== EMISOR HAMMING CORREGIDO ===
 Datos originales: 111010011
 Bits de datos: 9
 Bits de paridad necesarios: 4
 Posiciones de paridad: 1, 2, 4, 8
+Trama inicial (datos solamente): 0010110010011
 Bit de paridad en posición 1: 0
+  -> Basado en posiciones: 3, 5, 7, 9, 11, 13
 Bit de paridad en posición 2: 0
+  -> Basado en posiciones: 3, 6, 7, 10, 11
 Bit de paridad en posición 4: 0
+  -> Basado en posiciones: 5, 6, 7, 12, 13
 Bit de paridad en posición 8: 1
+  -> Basado en posiciones: 9, 10, 11, 12, 13
 Trama con código de Hamming: 0010110110011
 Longitud total: 13 bits
 
+--- VERIFICACIÓN ---
+Verificación P1: 0 (debería ser 0)
+Verificación P2: 0 (debería ser 0)
+Verificación P4: 0 (debería ser 0)
+Verificación P8: 0 (debería ser 0)
+Síndrome de verificación: 0 (debe ser 0)
+
 TRAMA CODIFICADA: 0010110110011
+VERIFICACIÓN: ✓ CORRECTA
 
 TRAMA GENERADA: 0010110110011
 
