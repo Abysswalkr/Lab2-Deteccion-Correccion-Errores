@@ -118,7 +118,7 @@ def probar_receptor():
     ]
     
     print("=" * 60)
-    print("PRUEBAS DEL RECEPTOR HAMMING CORREGIDO")
+    print("PRUEBAS DEL RECEPTOR HAMMING")
     print("=" * 60)
     
     for i, (trama, descripcion) in enumerate(tramas_prueba):
