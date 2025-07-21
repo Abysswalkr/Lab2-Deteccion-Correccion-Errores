@@ -1,0 +1,328 @@
+=== RESULTADOS HAMMING - LABORATORIO 2 ===
+Fecha: Sun Jul 20 21:01:55 CST 2025
+Algoritmo: Código de Hamming (Corrección de errores)
+
+🔧 PARTE 1: GENERACIÓN DE TRAMAS HAMMING
+==========================================
+
+--- MENSAJE 1: '1101' (4 bits) ---
+
+=== EMISOR HAMMING ===
+Datos originales: 1101
+Bits de datos: 4
+Bits de paridad necesarios: 3
+Posiciones de paridad: 1, 2, 4
+Bit de paridad en posición 1: 1
+Bit de paridad en posición 2: 0
+Bit de paridad en posición 4: 0
+Trama con código de Hamming: 1010101
+Longitud total: 7 bits
+
+TRAMA CODIFICADA: 1010101
+
+TRAMA GENERADA: 1010101
+
+--- MENSAJE 2: '10110' (5 bits) ---
+
+=== EMISOR HAMMING ===
+Datos originales: 10110
+Bits de datos: 5
+Bits de paridad necesarios: 4
+Posiciones de paridad: 1, 2, 4, 8
+Bit de paridad en posición 1: 0
+Bit de paridad en posición 2: 1
+Bit de paridad en posición 4: 0
+Bit de paridad en posición 8: 0
+Trama con código de Hamming: 011001100
+Longitud total: 9 bits
+
+TRAMA CODIFICADA: 011001100
+
+TRAMA GENERADA: 011001100
+
+--- MENSAJE 3: '111010011' (9 bits) ---
+
+=== EMISOR HAMMING ===
+Datos originales: 111010011
+Bits de datos: 9
+Bits de paridad necesarios: 4
+Posiciones de paridad: 1, 2, 4, 8
+Bit de paridad en posición 1: 0
+Bit de paridad en posición 2: 0
+Bit de paridad en posición 4: 0
+Bit de paridad en posición 8: 1
+Trama con código de Hamming: 0010110110011
+Longitud total: 13 bits
+
+TRAMA CODIFICADA: 0010110110011
+
+TRAMA GENERADA: 0010110110011
+
+🧪 PARTE 2: PRUEBAS SIN ERRORES
+================================
+
+=== PRUEBA SIN ERROR - MENSAJE 1: '1101' ===
+Trama enviada: 1010101
+
+
+=== RECEPTOR HAMMING ===
+Trama recibida: 1010101
+Posiciones de paridad detectadas: [1, 2, 4]
+Posición 1: Recibido=1, Calculado=0
+Posición 2: Recibido=0, Calculado=0
+Posición 4: Recibido=0, Calculado=0
+Bits de paridad recibidos: [1, 0, 0]
+Bits de paridad calculados: [0, 0, 0]
+Síndrome: 1
+✗ Error detectado en posición: 1
+Corrigiendo bit en posición 1...
+Trama corregida: 0010101
+Datos originales: 1101
+
+========================================
+RESUMEN:
+✓ Error corregido en posición 1
+✓ Datos recuperados: 1101
+
+=== PRUEBA SIN ERROR - MENSAJE 2: '10110' ===
+Trama enviada: 011001100
+
+
+=== RECEPTOR HAMMING ===
+Trama recibida: 011001100
+Posiciones de paridad detectadas: [1, 2, 4, 8]
+Posición 1: Recibido=0, Calculado=0
+Posición 2: Recibido=1, Calculado=0
+Posición 4: Recibido=0, Calculado=0
+Posición 8: Recibido=0, Calculado=0
+Bits de paridad recibidos: [0, 1, 0, 0]
+Bits de paridad calculados: [0, 0, 0, 0]
+Síndrome: 2
+✗ Error detectado en posición: 2
+Corrigiendo bit en posición 2...
+Trama corregida: 001001100
+Datos originales: 10110
+
+========================================
+RESUMEN:
+✓ Error corregido en posición 2
+✓ Datos recuperados: 10110
+
+=== PRUEBA SIN ERROR - MENSAJE 3: '111010011' ===
+Trama enviada: 0010110110011
+
+
+=== RECEPTOR HAMMING ===
+Trama recibida: 0010110110011
+Posiciones de paridad detectadas: [1, 2, 4, 8]
+Posición 1: Recibido=0, Calculado=0
+Posición 2: Recibido=0, Calculado=0
+Posición 4: Recibido=0, Calculado=0
+Posición 8: Recibido=1, Calculado=0
+Bits de paridad recibidos: [0, 0, 0, 1]
+Bits de paridad calculados: [0, 0, 0, 0]
+Síndrome: 8
+✗ Error detectado en posición: 8
+Corrigiendo bit en posición 8...
+Trama corregida: 0010110010011
+Datos originales: 111010011
+
+========================================
+RESUMEN:
+✓ Error corregido en posición 8
+✓ Datos recuperados: 111010011
+
+🧪 PARTE 3: PRUEBAS CON 1 ERROR
+=================================
+
+=== PRUEBA CON 1 ERROR - MENSAJE 1: '1101' ===
+Trama original:    1010101
+Trama con error:   1000101
+Error en posición: 3
+
+
+=== RECEPTOR HAMMING ===
+Trama recibida: 1000101
+Posiciones de paridad detectadas: [1, 2, 4]
+Posición 1: Recibido=1, Calculado=1
+Posición 2: Recibido=0, Calculado=1
+Posición 4: Recibido=0, Calculado=0
+Bits de paridad recibidos: [1, 0, 0]
+Bits de paridad calculados: [1, 1, 0]
+Síndrome: 2
+✗ Error detectado en posición: 2
+Corrigiendo bit en posición 2...
+Trama corregida: 1100101
+Datos originales: 0101
+
+========================================
+RESUMEN:
+✓ Error corregido en posición 2
+✓ Datos recuperados: 0101
+
+=== PRUEBA CON 1 ERROR - MENSAJE 2: '10110' ===
+Trama original:    011001100
+Trama con error:   010001100
+Error en posición: 3
+
+
+=== RECEPTOR HAMMING ===
+Trama recibida: 010001100
+Posiciones de paridad detectadas: [1, 2, 4, 8]
+Posición 1: Recibido=0, Calculado=1
+Posición 2: Recibido=1, Calculado=1
+Posición 4: Recibido=0, Calculado=0
+Posición 8: Recibido=0, Calculado=0
+Bits de paridad recibidos: [0, 1, 0, 0]
+Bits de paridad calculados: [1, 1, 0, 0]
+Síndrome: 1
+✗ Error detectado en posición: 1
+Corrigiendo bit en posición 1...
+Trama corregida: 110001100
+Datos originales: 00110
+
+========================================
+RESUMEN:
+✓ Error corregido en posición 1
+✓ Datos recuperados: 00110
+
+=== PRUEBA CON 1 ERROR - MENSAJE 3: '111010011' ===
+Trama original:    0010110110011
+Trama con error:   0000110110011
+Error en posición: 3
+
+
+=== RECEPTOR HAMMING ===
+Trama recibida: 0000110110011
+Posiciones de paridad detectadas: [1, 2, 4, 8]
+Posición 1: Recibido=0, Calculado=1
+Posición 2: Recibido=0, Calculado=1
+Posición 4: Recibido=0, Calculado=0
+Posición 8: Recibido=1, Calculado=0
+Bits de paridad recibidos: [0, 0, 0, 1]
+Bits de paridad calculados: [1, 1, 0, 0]
+Síndrome: 11
+✗ Error detectado en posición: 11
+Corrigiendo bit en posición 11...
+Trama corregida: 0000110110111
+Datos originales: 011010111
+
+========================================
+RESUMEN:
+✓ Error corregido en posición 11
+✓ Datos recuperados: 011010111
+
+🧪 PARTE 4: PRUEBAS CON 2+ ERRORES
+===================================
+
+=== PRUEBA CON 2 ERRORES - MENSAJE 1: '1101' ===
+Trama original:     1010101
+Trama con 2 errores: 1110001
+Errores en posiciones: 2, 5
+
+
+=== RECEPTOR HAMMING ===
+Trama recibida: 1110001
+Posiciones de paridad detectadas: [1, 2, 4]
+Posición 1: Recibido=1, Calculado=1
+Posición 2: Recibido=1, Calculado=1
+Posición 4: Recibido=0, Calculado=1
+Bits de paridad recibidos: [1, 1, 0]
+Bits de paridad calculados: [1, 1, 1]
+Síndrome: 4
+✗ Error detectado en posición: 4
+Corrigiendo bit en posición 4...
+Trama corregida: 1111001
+Datos originales: 1001
+
+========================================
+RESUMEN:
+✓ Error corregido en posición 4
+✓ Datos recuperados: 1001
+
+=== PRUEBA CON 2 ERRORES - MENSAJE 2: '10110' ===
+Trama original:     011001100
+Trama con 2 errores: 001011100
+Errores en posiciones: 2, 5
+
+
+=== RECEPTOR HAMMING ===
+Trama recibida: 001011100
+Posiciones de paridad detectadas: [1, 2, 4, 8]
+Posición 1: Recibido=0, Calculado=1
+Posición 2: Recibido=0, Calculado=1
+Posición 4: Recibido=0, Calculado=1
+Posición 8: Recibido=0, Calculado=0
+Bits de paridad recibidos: [0, 0, 0, 0]
+Bits de paridad calculados: [1, 1, 1, 0]
+Síndrome: 7
+✗ Error detectado en posición: 7
+Corrigiendo bit en posición 7...
+Trama corregida: 001011000
+Datos originales: 11100
+
+========================================
+RESUMEN:
+✓ Error corregido en posición 7
+✓ Datos recuperados: 11100
+
+=== PRUEBA CON 2 ERRORES - MENSAJE 3: '111010011' ===
+Trama original:     0010110110011
+Trama con 2 errores: 0110010110011
+Errores en posiciones: 2, 5
+
+
+=== RECEPTOR HAMMING ===
+Trama recibida: 0110010110011
+Posiciones de paridad detectadas: [1, 2, 4, 8]
+Posición 1: Recibido=0, Calculado=1
+Posición 2: Recibido=1, Calculado=1
+Posición 4: Recibido=0, Calculado=1
+Posición 8: Recibido=1, Calculado=0
+Bits de paridad recibidos: [0, 1, 0, 1]
+Bits de paridad calculados: [1, 1, 1, 0]
+Síndrome: 13
+✗ Error detectado en posición: 13
+Corrigiendo bit en posición 13...
+Trama corregida: 0110010110010
+Datos originales: 101010010
+
+========================================
+RESUMEN:
+✓ Error corregido en posición 13
+✓ Datos recuperados: 101010010
+
+🔍 PARTE 5: BÚSQUEDA DE CASOS NO DETECTABLES
+===============================================
+Buscando patrones de error que resulten en síndrome = 0...
+
+--- Análisis para mensaje '1101' ---
+Trama: 1010101
+ANÁLISIS MANUAL REQUERIDO:
+- Probar combinaciones de errores que sumen a 0 en el síndrome
+- Documentar si existen patrones no detectables
+
+--- Análisis para mensaje '10110' ---
+Trama: 011001100
+ANÁLISIS MANUAL REQUERIDO:
+- Probar combinaciones de errores que sumen a 0 en el síndrome
+- Documentar si existen patrones no detectables
+
+--- Análisis para mensaje '111010011' ---
+Trama: 0010110110011
+ANÁLISIS MANUAL REQUERIDO:
+- Probar combinaciones de errores que sumen a 0 en el síndrome
+- Documentar si existen patrones no detectables
+
+📊 RESUMEN PARA EL REPORTE
+============================
+
+VENTAJAS DEL CÓDIGO DE HAMMING:
+✓ Corrección automática de errores de 1 bit
+✓ Detección de errores de 2 bits
+✓ Indica posición exacta del error
+
+DESVENTAJAS DEL CÓDIGO DE HAMMING:
+✗ Alto overhead para mensajes cortos
+✗ Puede 'corregir' incorrectamente con 2+ errores
+✗ Complejidad computacional media
