@@ -1,5 +1,5 @@
 === RESULTADOS HAMMING - LABORATORIO 2 ===
-Fecha: Sun Jul 20 21:32:59 CST 2025
+Fecha: Sun Jul 20 22:19:28 CST 2025
 Algoritmo: Código de Hamming (Corrección de errores)
 
 🔧 PARTE 1: GENERACIÓN DE TRAMAS HAMMING
@@ -7,7 +7,7 @@ Algoritmo: Código de Hamming (Corrección de errores)
 
 --- MENSAJE 1: '1101' (4 bits) ---
 
-=== EMISOR HAMMING CORREGIDO ===
+=== EMISOR HAMMING ===
 Datos originales: 1101
 Bits de datos: 4
 Bits de paridad necesarios: 3
@@ -35,7 +35,7 @@ TRAMA GENERADA: 1010101
 
 --- MENSAJE 2: '10110' (5 bits) ---
 
-=== EMISOR HAMMING CORREGIDO ===
+=== EMISOR HAMMING ===
 Datos originales: 10110
 Bits de datos: 5
 Bits de paridad necesarios: 4
@@ -66,7 +66,7 @@ TRAMA GENERADA: 011001100
 
 --- MENSAJE 3: '111010011' (9 bits) ---
 
-=== EMISOR HAMMING CORREGIDO ===
+=== EMISOR HAMMING ===
 Datos originales: 111010011
 Bits de datos: 9
 Bits de paridad necesarios: 4
@@ -102,7 +102,7 @@ TRAMA GENERADA: 0010110110011
 Trama enviada: 1010101
 
 
-=== RECEPTOR HAMMING CORREGIDO ===
+=== RECEPTOR HAMMING ===
 Trama recibida: 1010101
 Posiciones de paridad detectadas: [1, 2, 4]
 
@@ -124,7 +124,7 @@ RESUMEN:
 Trama enviada: 011001100
 
 
-=== RECEPTOR HAMMING CORREGIDO ===
+=== RECEPTOR HAMMING ===
 Trama recibida: 011001100
 Posiciones de paridad detectadas: [1, 2, 4, 8]
 
@@ -147,7 +147,7 @@ RESUMEN:
 Trama enviada: 0010110110011
 
 
-=== RECEPTOR HAMMING CORREGIDO ===
+=== RECEPTOR HAMMING ===
 Trama recibida: 0010110110011
 Posiciones de paridad detectadas: [1, 2, 4, 8]
 
@@ -175,7 +175,7 @@ Trama con error:   1000101
 Error en posición: 3
 
 
-=== RECEPTOR HAMMING CORREGIDO ===
+=== RECEPTOR HAMMING ===
 Trama recibida: 1000101
 Posiciones de paridad detectadas: [1, 2, 4]
 
@@ -204,7 +204,7 @@ Trama con error:   010001100
 Error en posición: 3
 
 
-=== RECEPTOR HAMMING CORREGIDO ===
+=== RECEPTOR HAMMING ===
 Trama recibida: 010001100
 Posiciones de paridad detectadas: [1, 2, 4, 8]
 
@@ -234,7 +234,7 @@ Trama con error:   0000110110011
 Error en posición: 3
 
 
-=== RECEPTOR HAMMING CORREGIDO ===
+=== RECEPTOR HAMMING ===
 Trama recibida: 0000110110011
 Posiciones de paridad detectadas: [1, 2, 4, 8]
 
@@ -267,7 +267,7 @@ Trama con 2 errores: 1110001
 Errores en posiciones: 2, 5
 
 
-=== RECEPTOR HAMMING CORREGIDO ===
+=== RECEPTOR HAMMING ===
 Trama recibida: 1110001
 Posiciones de paridad detectadas: [1, 2, 4]
 
@@ -296,7 +296,7 @@ Trama con 2 errores: 001011100
 Errores en posiciones: 2, 5
 
 
-=== RECEPTOR HAMMING CORREGIDO ===
+=== RECEPTOR HAMMING ===
 Trama recibida: 001011100
 Posiciones de paridad detectadas: [1, 2, 4, 8]
 
@@ -326,7 +326,7 @@ Trama con 2 errores: 0110010110011
 Errores en posiciones: 2, 5
 
 
-=== RECEPTOR HAMMING CORREGIDO ===
+=== RECEPTOR HAMMING ===
 Trama recibida: 0110010110011
 Posiciones de paridad detectadas: [1, 2, 4, 8]
 
