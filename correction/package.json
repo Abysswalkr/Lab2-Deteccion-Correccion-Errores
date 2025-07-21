@@ -1,0 +1,22 @@
+{
+  "name": "hamming-correction",
+  "version": "1.0.0",
+  "description": "Hamming code error detection and correction system",
+  "main": "emitter-hamming.js",
+  "scripts": {
+    "start": "node emitter-hamming.js",
+    "test": "node emitter-hamming.js",
+    "emitter": "node emitter-hamming.js",
+    "receptor": "python3 receptor-hamming.py"
+  },
+  "keywords": [
+    "hamming",
+    "error-correction",
+    "coding-theory"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
