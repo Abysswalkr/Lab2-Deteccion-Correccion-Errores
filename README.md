@@ -1,4 +1,3 @@
-```markdown
 # Lab2: Detección de errores con Fletcher Checksum
 
 Este repositorio contiene la primera parte del Laboratorio 2 de **Esquemas de Detección y Corrección de Errores**, en el que implementamos el algoritmo **Fletcher Checksum** para detección de errores. El emisor está en **Python** y el receptor en **JavaScript (Node.js)**, cumpliendo la consigna de usar distintos lenguajes.
@@ -7,22 +6,22 @@ Este repositorio contiene la primera parte del Laboratorio 2 de **Esquemas de 
 
 ## 📁 Estructura del proyecto
 
-```
-
+```text
 Lab2-Deteccion-Correccion-Errores/
 ├── detector/
-│   ├── **init**.py
+│   ├── __init__.py
 │   ├── fletcher/
-│   │   ├── **init**.py
-│   │   ├── constants.py        # Tamaños de bloque permitidos
-│   │   ├── emisor.py           # Emisor & funciones de cálculo (Python)
-│   │   └── receptor.js         # Receptor (Node.js)
+│   │   ├── __init__.py            # Módulo Fletcher
+│   │   ├── constants.py           # Tamaños de bloque permitidos
+│   │   ├── emisor.py              # Emisor & cálculo (Python)
+│   │   └── receptor.js            # Receptor (Node.js)
 │   └── tests/
-│       └── test\_fletcher\_cross.py  # Suite pytest cross‑language
+│       └── test_fletcher_cross.py # Suite pytest cross‑language
 ├── docs/
-│   └── reporte.pdf             # Informe de laboratorio
-├── README.md                   # Este archivo
-└── requirements.txt            # Dependencias Python
+│   └── reporte.pdf                # Informe de laboratorio
+├── README.md                      # Este archivo
+└── requirements.txt               # Dependencias Python
+
 
 ````
 
