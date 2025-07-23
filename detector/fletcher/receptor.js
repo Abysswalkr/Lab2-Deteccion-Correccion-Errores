@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// detector/fletcher/receptor.js
 // Uso: node detector/fletcher/receptor.js <8|16|32> <hex_frame>
 
 const [,, blockSizeArg, hexFrame] = process.argv;
@@ -65,7 +64,6 @@ try {
   return printJSON(ok, original);
 
 } catch (e) {
-  // Para que el proceso no truene sin info
   console.error(e.stack || e);
   process.exit(1);
 }
