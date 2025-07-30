@@ -1,8 +1,8 @@
-# detector/emitter/main.py
 from .application import parse_args
 from .presentation import to_bytes_ascii, bytes_to_hex, bytes_to_bitstring
 from .enlace import build_frame_fletcher
 from .ruido import apply_ber
+from .transmision import send_over_tcp   # <── NUEVO
 
 def main():
     args = parse_args()
@@ -30,9 +30,17 @@ def main():
     noisy_frame, flipped = apply_ber(frame, args.ber)
     print(f"Trama con ruido (hex): {bytes_to_hex(noisy_frame)}")
     print(f"Bits volteados: {flipped if flipped else 'Ninguno'}")
-    print(f"Total bits volteados: {len(flipped)}")
+    print(f"Total bits volteados: {len(flipped)}\n")
 
-    print("\n=== RESUMEN ===")
+    if args.send_host and args.send_port:
+        print("=== CAPA TRANSMISIÓN (TCP) ===")
+        response = send_over_tcp(args.send_host, args.send_port, args.alg, args.block_size, noisy_frame)
+        if response is None:
+            print("No se recibió respuesta del receptor.")
+        else:
+            print("Respuesta receptor (JSON):", response)
+
+    print("=== RESUMEN ===")
     print("Original (hex):", bytes_to_hex(frame))
     print("Con ruido (hex):", bytes_to_hex(noisy_frame))
 
