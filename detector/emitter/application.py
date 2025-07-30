@@ -14,4 +14,6 @@ def parse_args():
 
     parser.add_argument("--send-host", default=None, help="Host destino para enviar por TCP")
     parser.add_argument("--send-port", type=int, default=None, help="Puerto destino para enviar por TCP")
+
+    parser.add_argument("--flip-bits", default="", help="Índices absolutos de bits a voltear, separados por coma")
     return parser.parse_args()

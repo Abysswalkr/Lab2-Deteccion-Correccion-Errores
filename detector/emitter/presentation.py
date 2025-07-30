@@ -1,4 +1,3 @@
-# detector/emitter/presentation.py
 def to_bytes_ascii(msg: str) -> bytes:
     return msg.encode("ascii", errors="strict")
 

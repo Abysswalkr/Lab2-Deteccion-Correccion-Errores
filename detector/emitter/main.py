@@ -1,8 +1,8 @@
 from .application import parse_args
 from .presentation import to_bytes_ascii, bytes_to_hex, bytes_to_bitstring
 from .enlace import build_frame_fletcher
-from .ruido import apply_ber
-from .transmision import send_over_tcp   # <── NUEVO
+from .ruido import apply_ber, apply_manual_flips
+from .transmision import send_over_tcp
 
 def main():
     args = parse_args()
@@ -27,18 +27,29 @@ def main():
     print(f"Trama emitida (bits): {bytes_to_bitstring(frame)}\n")
 
     print("=== CAPA RUIDO (EMISOR) ===")
-    noisy_frame, flipped = apply_ber(frame, args.ber)
+    flip_bits_list = [int(x) for x in args.flip_bits.split(",") if x.strip().isdigit()]
+    if flip_bits_list:
+        noisy_frame, flipped = apply_manual_flips(frame, flip_bits_list)
+        print(f"(Modo manual) Bits a voltear (entrada): {flip_bits_list}")
+    else:
+        noisy_frame, flipped = apply_ber(frame, args.ber)
+
     print(f"Trama con ruido (hex): {bytes_to_hex(noisy_frame)}")
     print(f"Bits volteados: {flipped if flipped else 'Ninguno'}")
     print(f"Total bits volteados: {len(flipped)}\n")
 
-    if args.send_host and args.send_port:
-        print("=== CAPA TRANSMISIÓN (TCP) ===")
-        response = send_over_tcp(args.send_host, args.send_port, args.alg, args.block_size, noisy_frame)
-        if response is None:
-            print("No se recibió respuesta del receptor.")
-        else:
+    print("=== CAPA TRANSMISIÓN (TCP) ===")
+    print(f"Destino: {args.send_host}:{args.send_port}")
+    try:
+        if args.send_host and args.send_port:
+            response = send_over_tcp(args.send_host, args.send_port, args.alg, args.block_size, noisy_frame)
             print("Respuesta receptor (JSON):", response)
+        else:
+            print("Flags --send-host/--send-port no proporcionados; no se envía.")
+    except Exception as e:
+        import traceback
+        print("Error de transmisión:", e)
+        traceback.print_exc()
 
     print("=== RESUMEN ===")
     print("Original (hex):", bytes_to_hex(frame))
