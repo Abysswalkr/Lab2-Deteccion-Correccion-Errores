@@ -1,138 +1,190 @@
 # Lab2: Detección de errores con Fletcher Checksum
 
-Este repositorio contiene la primera parte del Laboratorio 2 de **Esquemas de Detección y Corrección de Errores**, en el que implementamos el algoritmo **Fletcher Checksum** para detección de errores. El emisor está en **Python** y el receptor en **JavaScript (Node.js)**, cumpliendo la consigna de usar distintos lenguajes.
+Este repositorio contiene la primera parte del Laboratorio 2 de **Esquemas de Detección y Corrección de Errores**, en la que implementamos el algoritmo **Fletcher Checksum** para **detección** de errores.
+El **emisor** está en **Python** (arquitectura por capas) y el **receptor** en **JavaScript (Node.js)**, cumpliendo la consigna de usar **lenguajes distintos**.
 
 ---
 
-## 📁 Estructura del proyecto
+## 🗂️ Estructura del proyecto
 
 ```text
 Lab2-Deteccion-Correccion-Errores/
-├── detector/
-│   ├── __init__.py
-│   ├── fletcher/
-│   │   ├── __init__.py            # Módulo Fletcher
-│   │   ├── constants.py           # Tamaños de bloque permitidos
-│   │   ├── emisor.py              # Emisor & cálculo (Python)
-│   │   └── receptor.js            # Receptor (Node.js)
-│   └── tests/
-│       └── test_fletcher_cross.py # Suite pytest cross‑language
-├── docs/
-│   └── reporte.pdf                # Informe de laboratorio
-├── README.md                      # Este archivo
-└── requirements.txt               # Dependencias Python
-
-
-````
+├─ detector/
+│  ├─ __init__.py
+│  ├─ fletcher/
+│  │  ├─ __init__.py           # Exporta emisor_fletcher, calcular_fletcher (Python)
+│  │  ├─ constants.py          # Tamaños de bloque permitidos (8/16/32)
+│  │  └─ emisor.py             # Cálculo Fletcher + construcción de trama
+│  ├─ emitter/                 # CAPAS (lado emisor, en Python)
+│  │  ├─ application.py        # Aplicación: entrada de parámetros, resumen
+│  │  ├─ presentation.py       # Presentación: ASCII <-> bits/hex
+│  │  ├─ enlace.py             # Enlace: emisor_fletcher, armado de trama
+│  │  ├─ ruido.py              # "Ruido": BER y flips manuales (--flip-bits)
+│  │  ├─ transmision.py        # TCP JSONL (send_over_tcp + JsonlClient persistente)
+│  │  └─ main.py               # CLI principal del emisor
+│  ├─ receiver/                # RECEPTOR (lado receptor, en Node.js)
+│  │  └─ server.js             # Servidor TCP JSONL: verifica Fletcher y responde JSON
+│  ├─ tests/
+│  │  └─ test_fletcher_cross.py  # Suite pytest cross-language (Python→Node)
+│  └─ benchmarks/
+│     └─ fletcher_bench.py     # Pruebas masivas, CSV y gráficas
+├─ docs/
+│  ├─ fletcher_stats.csv       # Resultados (se genera al correr el benchmark)
+│  └─ plots/                   # Gráficas PNG (se generan al correr el benchmark)
+├─ README.md                   # Este archivo
+└─ requirements.txt            # Dependencias Python (pytest, matplotlib, etc.)
+```
 
 ---
 
-## ⚙️ Requisitos
+## ✅ Requisitos
 
-- **Python 3.9+**  
-- **Node.js 14+** (incluye `node`)  
-- **pip** y **pytest**  
-  ```bash
-  python -m pip install --user pytest
-````
+* **Python 3.12 (64-bit recomendado)**
 
-* (Opcional) Entorno virtual para Python:
+  > *Nota:* para generar gráficas con `matplotlib` en Windows, evita Python de 32-bit.
+* **Node.js 14+** (se recomienda 18+)
+* **pip** y **pytest**
+* (Opcional) **Entorno virtual** (`venv`)
 
-  ```bash
-  python -m venv venv
-  source venv/bin/activate     # Linux/macOS
-  venv\Scripts\activate        # Windows
-  ```
+```bash
+# Instalar pytest (si no usas requirements.txt)
+python -m pip install --user pytest
+```
+
+> **Sugerencia (Windows/PowerShell):** crea un venv con Python 3.12 (64-bit):
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
 
 ---
 
 ## 🚀 Instalación y Setup
 
-1. **Clona el repositorio**
+### 1) Clonar el repositorio
 
-   ```bash
-   git clone https://github.com/Abysswalkr/Lab2-Deteccion-Correccion-Errores.git
-   cd Lab2-Deteccion-Correccion-Errores
-   ```
+```bash
+git clone <URL-del-repo>
+cd Lab2-Deteccion-Correccion-Errores
+```
 
-2. **Instala dependencias Python**
+### 2) Instalar dependencias Python
 
-   ```bash
-   python -m pip install --user -r requirements.txt
-   ```
+```bash
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
 
-3. **Verifica Node.js**
+> Si no usas `requirements.txt`:
+> `python -m pip install pytest matplotlib`
 
-   ```bash
-   node --version
-   ```
+### 3) Iniciar el **receptor** (Node.js)
+
+En **otra terminal**:
+
+```bash
+node detector/receiver/server.js --port 5000
+```
+
+Verás un mensaje de que está **escuchando** y aceptando JSON por línea (**JSONL**) en TCP.
 
 ---
 
-## 🧩 Uso
+## 🧪 Tests (cross-language)
 
-### 1. Emisor (Python)
-
-En Python puedes importar y usar el emisor:
-
-```python
-from detector.fletcher import emisor_fletcher
-
-data = b"Hola Mundo"
-frame = emisor_fletcher(data, block_size=16)
-print(frame.hex())  # muestra data‖sum1‖sum2 en hexadecimal
-```
-
-### 2. Receptor (Node.js)
-
-El receptor lee desde la línea de comandos:
+Ejecuta la suite que valida emisor Python + receptor Node:
 
 ```bash
-# block_size ∈ {8,16,32}, hex_frame = frame.hex()
-node detector/fletcher/receptor.js 16 486f6c61204d756e646f...
-# → {"ok":true,"original":"486f6c61204d756e646f"}
-```
-
-Si `ok` es `false`, la trama fue descartada.
-
----
-
-## ✅ Pruebas Automáticas
-
-La suite `pytest` corre 27 casos (3 mensajes × 3 bloques × 3 escenarios):
-
-```bash
-# Ejecutar únicamente las pruebas Fletcher cross-language
+pytest detector/tests/test_fletcher_cross.py
+# o en PowerShell
 python -m pytest detector/tests/test_fletcher_cross.py
 ```
 
-O bien, para ejecutar todas las pruebas:
+Debería mostrar algo como **27 passed**.
+
+---
+
+## ▶️ Emisor por capas (CLI)
+
+Formato general:
 
 ```bash
-python -m pytest
+python -m detector.emitter.main \
+  --msg "Hola Mundo" \
+  --alg fletcher \
+  --block-size 8|16|32 \
+  --ber 0.01 \
+  --send-host 127.0.0.1 --send-port 5000
 ```
 
-Deberías ver:
+**PowerShell (una línea):**
 
+```powershell
+python -m detector.emitter.main --msg "Hola Mundo" --alg fletcher --block-size 16 --ber 0.01 --send-host 127.0.0.1 --send-port 5000
 ```
-collected 27 items
-detector/tests/test_fletcher_cross.py ...........................
-27 passed in 2.5s
+
+### Flips manuales (reproducibles)
+
+* Un bit: `--flip-bits "0"`
+* Dos bits: `--flip-bits "0,1"`
+
+Ejemplo **1 bit** con bloque 8:
+
+```powershell
+python -m detector.emitter.main --msg "Hola Mundo" --alg fletcher --block-size 8 --ber 0.0 --flip-bits "0" --send-host 127.0.0.1 --send-port 5000
 ```
+
+El emisor imprime:
+
+* **Aplicación**: parámetros y BER
+* **Presentación**: ASCII bytes (hex) y bits
+* **Enlace**: trama emitida (hex/bits)
+* **Ruido**: bits volteados y trama resultante
+* **Transmisión**: respuesta JSON del receptor
+* **Resumen**: original vs con ruido (hex)
 
 ---
 
-## 📄 Documentación
+## 📈 Pruebas masivas (benchmark)
 
-* **Informe completo**: `docs/reporte.pdf`
-  Contiene portadas, metodología, resultados (tablas y capturas), discusión de colisiones y comparativas.
+Lanza el **receptor** primero:
 
-* **Comentarios en el código**:
-  Cada módulo incluye docstrings y comentarios que explican su propósito y funcionamiento.
+```bash
+node detector/receiver/server.js --port 5000
+```
+
+Corre el **benchmark**:
+
+```powershell
+python -m detector.benchmarks.fletcher_bench `
+  --host 127.0.0.1 --port 5000 `
+  --trials 1000 `
+  --lengths 5,11,50 `
+  --bers 0,0.001,0.01,0.05 `
+  --blocks 8,16,32 `
+  --seed 123 `
+  --out-csv docs/fletcher_stats.csv `
+  --plots-dir docs/plots
+```
+
+Genera:
+
+* **CSV**: `docs/fletcher_stats.csv`
+* **Gráficas** (PNG) en `docs/plots/`:
+
+  * `detection_rate_len5.png`, `detection_rate_len11.png`, `detection_rate_len50.png`
+  * `false_negative_rate_len5.png`, `false_negative_rate_len11.png`, `false_negative_rate_len50.png`
+
+> El benchmark usa una **conexión TCP persistente** (JSONL) por combinación para evitar `WinError 10048` (puertos efímeros en `TIME_WAIT`).
 
 ---
 
-## 🏷️ Licencia
+## 📜 Licencia / Créditos
 
-Este código es parte de la asignatura CC3067 en la Universidad del Valle de Guatemala y está sujeto a políticas de uso académico interno.
+Proyecto académico para el curso de **Redes** – *Esquemas de Detección y Corrección de Errores*.
+Autores: *Angel Herrarte y José Gramajo*.
 
+---
